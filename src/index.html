@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: "Lato", sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <main
+        style="width: 100vw; height: 100vh; background-color: #3f3f46; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center;">
+        <h1 style="color: #fff;" id="number-count">0</h1>
+        <button
+            style="height: 2rem; width: 10rem; border-radius: 1rem; font-weight: bold; background-color: #4338ca; color: #fff; border: none;"
+            onclick="somar()">
+            Somar+1
+        </button>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let number = 0;
+        const socket = io();
+
+        socket.on("return", (newNumber) => {
+            number = newNumber;
+            document.getElementById("number-count").innerText = number;
+        })
+
+        function somar() {
+            socket.emit("somar", number)
+        }
+
+    </script>
+
+</body>
+
+</html>
